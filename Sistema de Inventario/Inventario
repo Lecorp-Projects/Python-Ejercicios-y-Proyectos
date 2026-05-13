@@ -1,3 +1,22 @@
+# ============================================================
+# Sistema de inventario de productos electrónicos
+# ============================================================
+# Este programa permite consultar y administrar el stock de un
+# conjunto de productos electrónicos mediante un menú interactivo.
+#
+# Funcionalidades principales:
+# - Consultar el stock de un producto específico.
+# - Mostrar el producto con mayor y menor cantidad disponible.
+# - Calcular el stock total y el promedio de inventario.
+# - Actualizar el stock de un producto, ya sea cambiándolo,
+#   sumando unidades o restando unidades.
+# - Generar un reporte de productos con bajo stock y con exceso
+#   de inventario, ordenados según su cantidad.
+#
+# El programa trabaja con dos listas relacionadas:
+# una para los nombres de los productos y otra para sus cantidades.
+# ============================================================
+
 def mayormenor(lista1,lista2,opcion):
     if opcion == "2":
         m = max(lista2)

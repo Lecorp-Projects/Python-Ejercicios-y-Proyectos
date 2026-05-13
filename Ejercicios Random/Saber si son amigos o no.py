@@ -1,3 +1,18 @@
+# ============================================================
+# Verificador de números amigos
+# ============================================================
+# Este programa permite comprobar si dos números son amigos.
+#
+# Dos números se consideran amigos cuando la suma de los divisores
+# propios de cada uno da como resultado el otro número.
+# Por ejemplo, 220 y 284 son números amigos.
+#
+# Funcionalidades principales:
+# - Calcular la suma de los divisores propios de un número.
+# - Verificar si una pareja de números cumple la condición de amistad.
+# - Permitir analizar varias parejas de números ingresadas por el usuario.
+# ============================================================
+
 def sumadivisores(numero):
     divisores = 0 
     limite = numero -1 

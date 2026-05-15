@@ -1,322 +1,141 @@
-# Python - Ejercicios, Proyectos y Documentación
+````markdown
+# Sistema de Monitoreo Ambiental
 
-Este repositorio reúne ejercicios, prácticas, proyectos y documentos de consulta desarrollados durante mi proceso de aprendizaje de Python.
+Este proyecto implementa un sistema de información en consola para administrar estaciones de monitoreo ambiental y registrar mediciones de variables relacionadas con calidad del aire y condiciones climáticas.
 
-El contenido está organizado para mostrar una evolución progresiva:
+El programa fue desarrollado como una práctica de programación en Python enfocada en el uso de:
 
-* Ejercicios iniciales de lógica y fundamentos.
-* Prácticas enfocadas en cadenas, listas, matemáticas, patrones y algoritmos.
-* Proyectos más completos con módulos, archivos, menús y procesamiento de datos.
-* Manuales de referencia para repasar conceptos de Python Core.
+- Cadenas de texto.
+- Listas.
+- Diccionarios.
+- Funciones.
+- Programación modular.
+- Lectura y escritura de archivos de texto.
+- Validación de datos ingresados por teclado.
 
 ---
 
-## Estructura general del repositorio
+## Descripción general
+
+El sistema simula una plataforma de monitoreo ambiental en la que existen:
+
+- Usuarios visitantes.
+- Usuarios registrados.
+- Administradores.
+- Operadores.
+- Municipios.
+- Estaciones de monitoreo.
+- Variables ambientales.
+- Registros de mediciones.
+
+Toda la información se almacena de forma persistente en un archivo de texto llamado:
 
 ```text
-Python-Ejercicios-y-Proyectos/
+registros_.txt
+````
+
+El programa lee este archivo, carga la información en memoria mediante estructuras de datos y actualiza el archivo cuando se crean, editan o eliminan datos.
+
+---
+
+## Funcionalidades
+
+### Usuario visitante
+
+Puede consultar estadísticas de las mediciones registradas.
+
+El visitante puede:
+
+* Seleccionar un periodo de análisis:
+
+  * Últimos 7 días.
+  * Últimos 30 días.
+  * Rango de fechas manual.
+* Elegir una, varias o todas las variables.
+* Elegir uno, varios o todos los municipios.
+* Visualizar los resultados por pantalla o guardarlos en un archivo `Estadisticas.txt`.
+
+Las estadísticas calculadas son:
+
+* Valor mínimo.
+* Estación y fecha del valor mínimo.
+* Valor máximo.
+* Estación y fecha del valor máximo.
+* Promedio.
+
+---
+
+### Usuario operador
+
+Debe autenticarse con documento y contraseña.
+
+Puede:
+
+* Seleccionar un municipio.
+* Elegir una estación perteneciente a ese municipio.
+* Consultar las medidas registradas para la estación.
+* Ingresar nuevas medidas.
+
+Al ingresar medidas:
+
+* La fecha y hora se toman automáticamente.
+* Cada valor se valida según el rango permitido para su variable.
+* Si una medición no está disponible, se puede ingresar `ND`, y el sistema la guarda como `-999.0`.
+
+---
+
+### Usuario administrador
+
+Debe autenticarse con documento y contraseña.
+
+Puede:
+
+#### Gestionar usuarios
+
+* Crear usuarios.
+* Editar usuarios.
+* Eliminar usuarios, excepto el usuario que tiene la sesión activa.
+
+Las validaciones aplicadas son:
+
+* Documento de exactamente 10 dígitos numéricos.
+* Nombre compuesto solo por letras y espacios.
+* Contraseña de mínimo 4 caracteres.
+* Confirmación de contraseña.
+* Rol válido: `Administrador` u `Operador`.
+
+#### Gestionar estaciones
+
+* Crear estaciones.
+* Editar estaciones.
+* Eliminar estaciones únicamente si no tienen registros asociados.
+
+Al crear una estación:
+
+* Se genera automáticamente un código incremental.
+* Se debe seleccionar uno de los municipios disponibles.
+
+#### Depurar registros duplicados
+
+El sistema puede comparar el archivo principal con una segunda versión llamada:
+
+```text
+registros_v2.txt
+```
+
+A partir de esa comparación genera:
+
+* Un reporte con los registros comunes en ambos archivos.
+* Un reporte con la unión de los registros, sin repetirlos.
+
+---
+
+## Estructura de archivos
+
+```text
+Sistema de Monitoreo Ambiental/
 │
-├── documentos/
-│   ├── Manual_de_Referencia_Python_Core.pdf
-│   └── Manual_de_Referencia_Python_Core_Completo.pdf
-│
-├── ejercicios/
-│   ├── algoritmos_aplicados/
-│   ├── cadenas/
-│   ├── fundamentos/
-│   ├── juegos/
-│   ├── listas/
-│   ├── matematicas_y_geometria/
-│   └── patrones_en_consola/
-│
-├── proyectos/
-│   ├── analizador_calificaciones/
-│   ├── sistema_inventario/
-│   ├── sistema_monitoreo_ambiental/
-│   └── sistema_gestion_notas/
-│
-└── README.md
-```
-
----
-
-# Documentación
-
-La carpeta `documentos/` contiene manuales de consulta y repaso de Python.
-
-## `Manual_de_Referencia_Python_Core.pdf`
-
-Manual estructurado de repaso sobre conceptos centrales de Python, incluyendo:
-
-* Objetos, nombres, variables y tipos.
-* Tipos de datos básicos.
-* Entrada y salida por consola.
-* Operadores.
-* Condicionales.
-* Cadenas y Unicode.
-* Indexación y slicing.
-* F-strings.
-* Ciclos.
-* Colecciones.
-* Diccionarios.
-* Funciones.
-* Scope y namespaces.
-* Módulos e imports.
-* Programación orientada a objetos.
-* Excepciones.
-* Archivos.
-* Módulos estándar.
-* Buenas prácticas y glosario técnico.
-
-## `Manual_de_Referencia_Python_Core_Completo.pdf`
-
-Versión ampliada y más explicativa del manual de referencia, pensada como documento de consulta más detallado.
-
-Además de conservar los contenidos anteriores, profundiza en temas como:
-
-* Parámetros opcionales y `None`.
-* `print(..., end="")`.
-* Formateo avanzado de texto y números.
-* Slicing con índices positivos y negativos.
-* Uso de `range()` con paso y recorridos inversos.
-* Rutas de archivos y construcción de paths.
-* Estructura de programas con `main()`.
-* Explicaciones más intuitivas de conceptos técnicos que suelen generar dudas.
-
----
-
-# Ejercicios
-
-La carpeta `ejercicios/` contiene programas pequeños y medianos organizados por temática.
-
----
-
-## `ejercicios/fundamentos/`
-
-Ejercicios iniciales para practicar estructuras básicas de Python:
-
-```text
-contador_digitos.py
-contrasena.py
-dias_semana.py
-elegibilidad_programador.py
-numeros_pares.py
-par_o_impar.py
-practica_inicial_(primer_python).py
-suma_numeros_anteriores.py
-```
-
-Temas trabajados:
-
-* Entrada y salida de datos.
-* Condicionales.
-* Ciclos `for` y `while`.
-* Acumuladores.
-* Validaciones simples.
-* Operadores aritméticos.
-* Programas introductorios.
-
----
-
-## `ejercicios/cadenas/`
-
-Ejercicios centrados en manipulación de texto:
-
-```text
-codificador_por_desplazamiento.py
-contar_mayusculas_minusculas.py
-palindromo_comparando_extremos.py
-palindromo_invirtiendo.py
-reemplazar_letra_por_asterisco.py
-vocal_o_consonante.py
-```
-
-Temas trabajados:
-
-* Recorrido de strings.
-* Comparación de caracteres.
-* Conversión a minúsculas.
-* Construcción progresiva de cadenas.
-* Palíndromos.
-* Búsqueda de letras.
-* Reemplazo de caracteres.
-* Codificación sencilla por desplazamiento alfabético.
-
----
-
-## `ejercicios/juegos/`
-
-Pequeños programas de interacción con el usuario:
-
-```text
-adivinar_numero.py
-adivinar_numero_1-100.py
-```
-
-Temas trabajados:
-
-* Números aleatorios.
-* Ciclos hasta acertar.
-* Comparaciones.
-* Mensajes de orientación al usuario.
-* Lógica de juego sencilla.
-
----
-
-## `ejercicios/listas/`
-
-Funciones creadas para comprender internamente operaciones básicas sobre listas:
-
-```text
-funciones.py
-prueba_funciones.py
-```
-
-Se implementan prácticas relacionadas con:
-
-* Contar elementos.
-* Insertar valores.
-* Agregar una lista al final de otra.
-* Eliminar elementos por valor.
-* Eliminar elementos por posición.
-* Buscar posiciones.
-* Invertir listas.
-* Imprimir listas de diferentes formas.
-
-El propósito de esta carpeta es practicar la lógica que hay detrás de métodos comunes como:
-
-```python
-.count()
-.insert()
-.extend()
-.remove()
-.index()
-.reverse()
-```
-
----
-
-## `ejercicios/matematicas_y_geometria/`
-
-Ejercicios numéricos, geométricos y matemáticos:
-
-```text
-maximo_comun_divisor.py
-numeros_amigos.py
-radianes_a_grados.py
-solucion_ecuacion_cuadratica.py
-triangulo_isosceles.py
-volumen_caneca.py
-```
-
-Temas trabajados:
-
-* Algoritmo de Euclides.
-* Números amigos.
-* Conversión de unidades.
-* Fórmula cuadrática.
-* Geometría.
-* Uso de `math`.
-* Cálculo de áreas, volúmenes y medidas derivadas.
-
----
-
-## `ejercicios/algoritmos_aplicados/`
-
-Ejercicios con situaciones contextualizadas:
-
-```text
-cambio_aceite.py
-costo_streaming.py
-costo_uso_bicicleta.py
-maquina_expendedora.py
-```
-
-Temas trabajados:
-
-* Tarifas por consumo.
-* Conversión de horas a minutos o segundos.
-* Condicionales encadenados.
-* División entera y módulo.
-* Descomposición de cantidades.
-* Aplicaciones prácticas de lógica algorítmica.
-
----
-
-## `ejercicios/patrones_en_consola/`
-
-Generación de figuras usando texto:
-
-```text
-patron_asteriscos.py
-patron_cruces.py
-```
-
-Temas trabajados:
-
-* Ciclos `while`.
-* Contadores.
-* Repetición de cadenas.
-* Patrones crecientes y decrecientes.
-* Construcción visual en consola.
-
----
-
-# Proyectos
-
-La carpeta `proyectos/` contiene programas más completos y estructurados.
-
----
-
-## `proyectos/analizador_calificaciones/`
-
-Programa para registrar estudiantes y analizar sus notas.
-
-Permite:
-
-* Ingresar varios estudiantes.
-* Registrar nombres y calificaciones.
-* Calcular el promedio general.
-* Contar aprobados y reprobados.
-* Identificar la mejor nota.
-* Mostrar estudiantes en recuperación.
-* Trabajar mediante menú.
-
-Este proyecto fue desarrollado teniendo como restricción evitar estructuras de datos más avanzadas y practicar el manejo manual de información.
-
----
-
-## `proyectos/sistema_inventario/`
-
-Proyecto de inventario desarrollado como práctica de organización y control de información.
-
-Su propósito es aplicar lógica de programación para registrar, consultar y administrar datos asociados a productos o elementos almacenados.
-
----
-
-## `proyectos/sistema_monitoreo_ambiental/`
-
-Sistema modular en consola para administrar estaciones de monitoreo ambiental.
-
-Incluye:
-
-* Usuarios visitantes.
-* Usuarios operadores.
-* Usuarios administradores.
-* Gestión de usuarios.
-* Gestión de estaciones.
-* Registro de mediciones.
-* Consulta de datos por estación.
-* Estadísticas por variables, municipios y periodos.
-* Depuración de registros entre dos versiones de archivo.
-* Persistencia de información en archivos `.txt`.
-
-Estructura principal:
-
-```text
-sistema_monitoreo_ambiental/
-│
-├── main.py
+├── Main.py
 ├── funciones.py
 ├── utilidades.py
 ├── registros_.txt
@@ -324,100 +143,129 @@ sistema_monitoreo_ambiental/
 └── README.md
 ```
 
-Este proyecto tiene documentación propia dentro de su carpeta.
+---
+
+## Descripción de los archivos
+
+### `Main.py`
+
+Contiene:
+
+* El menú inicial.
+* La navegación de usuarios visitantes, operadores y administradores.
+* La conexión entre las opciones del menú y las funciones del sistema.
+* La construcción de rutas para localizar correctamente los archivos `.txt` desde la carpeta del proyecto.
+
+### `funciones.py`
+
+Contiene la lógica principal del proyecto:
+
+* Carga y escritura del archivo de datos.
+* Autenticación.
+* Gestión de usuarios.
+* Gestión de estaciones.
+* Registro de medidas.
+* Estadísticas.
+* Comparación y depuración de registros.
+
+### `utilidades.py`
+
+Contiene funciones de apoyo:
+
+* Validación de nombres.
+* Validación de documentos.
+* Validación de fechas.
+* Verificación de años bisiestos.
+* Impresión de tablas en consola.
+* Limpieza visual de pantalla.
+
+### `registros_.txt`
+
+Es la base de datos en texto plano del sistema. Contiene:
+
+* Usuarios registrados.
+* Lista de municipios.
+* Estaciones de monitoreo.
+* Variables ambientales.
+* Registros de mediciones.
+
+### `registros_v2.txt`
+
+Es una segunda versión del archivo de datos utilizada para probar la funcionalidad de depuración de registros. Contiene una estructura equivalente a `registros_.txt`, pero con diferencias en algunos registros de mediciones.
 
 ---
 
-## `proyectos/sistema_gestion_notas/`
+## Formato del archivo de datos
 
-Sistema de gestión y análisis de notas académicas para estudiantes de primer semestre de Medicina.
-
-Incluye:
-
-* Carga de datos desde archivo.
-* Agregar y eliminar estudiantes.
-* Promedio de estudiantes.
-* Promedio de cursos.
-* Promedio de un curso específico.
-* Tres notas mayores por curso.
-* Menor nota de un estudiante.
-* Ordenamiento de estudiantes por promedio usando burbuja.
-* Ordenamiento por cantidad de cursos usando selección.
-* Guardado de cambios en archivo.
-* Pruebas de caja negra.
-
-Estructura principal:
+El archivo `registros_.txt` sigue esta estructura:
 
 ```text
-sistema_gestion_notas/
-│
-├── main.py
-├── funciones.py
-├── database_p7.txt
-├── pruebas_caja_negra.py
-└── README.md
-```
-
-Este proyecto también cuenta con documentación propia dentro de su carpeta.
-
----
-
-# Ejecución de los programas
-
-Para ejecutar un archivo individual:
-
-```bash
-python nombre_del_archivo.py
+<DOCUMENTO;NOMBRE_COMPLETO;CONTRASEÑA;ROL>
+:MUNICIPIO1,MUNICIPIO2,MUNICIPIO3
+CODIGO_ESTACION,NOMBRE_ESTACION,MUNICIPIO
+VARIABLE[MINIMO:MAXIMO,UNIDAD];VARIABLE[MINIMO:MAXIMO,UNIDAD]
+YYYY-MM-DD HH:MM:SS;CODIGO_ESTACION;{VALOR1,VALOR2,VALOR3}
 ```
 
 Ejemplo:
 
-```bash
-python ejercicios/fundamentos/par_o_impar.py
-```
-
-Para los proyectos con archivo principal `main.py`:
-
-```bash
-python main.py
-```
-
-Ejemplo:
-
-```bash
-cd proyectos/sistema_monitoreo_ambiental
-python main.py
-```
-
-o:
-
-```bash
-cd proyectos/sistema_gestion_notas
-python main.py
+```text
+<1010101010;Mariana Montoya;1234;Administrador>
+<1111111111;Elkin Perez;1234;Operador>
+:Medellin,Bello,Itagui,Caldas,La Estrella,Barbosa
+1,Universidad San Buenaventura,Medellin
+PM10[0.0:100.0,ug/m3];Temperatura[-20.0:50.0,°C]
+2019-07-01 00:00:00;1;{3.5,27.0}
 ```
 
 ---
 
-# Objetivo del repositorio
+## Ejecución
 
-Este repositorio funciona como registro de aprendizaje y práctica en Python, desde ejercicios básicos hasta proyectos modulares más completos.
+Para iniciar el programa, ejecutar:
 
-Busca reflejar el desarrollo progresivo de habilidades en:
+```bash
+python Main.py
+```
 
-* Pensamiento algorítmico.
-* Resolución de problemas.
-* Programación estructurada.
+El programa puede ejecutarse desde VS Code, Spyder o una terminal.
+Las rutas de los archivos de datos se construyen a partir de la ubicación de `Main.py`, por lo que el sistema busca correctamente `registros_.txt` y `registros_v2.txt` dentro de la misma carpeta del proyecto.
+
+---
+
+## Usuarios disponibles en el archivo base
+
+El archivo `registros_.txt` incluye usuarios de prueba que permiten ingresar al sistema:
+
+| Documento  | Nombre          | Contraseña | Rol           |
+| ---------- | --------------- | ---------- | ------------- |
+| 1010101010 | Mariana Montoya | 1234       | Administrador |
+| 1111111111 | Elkin Perez     | 1234       | Operador      |
+| 1212121212 | Camila Serna    | 1234       | Administrador |
+| 1313131313 | Oscar Jaramillo | 1234       | Operador      |
+
+---
+
+## Observaciones
+
+* El programa modifica `registros_.txt` al crear, editar o eliminar usuarios, estaciones o registros.
+* Para hacer pruebas sin alterar la base original, se recomienda conservar una copia del archivo inicial.
+* Las estadísticas de “últimos 7 días” y “últimos 30 días” dependen de que existan registros recientes en el archivo. Si se usa el archivo base original, puede ser más útil probar la opción de fechas manuales.
+* La opción de depuración requiere el archivo adicional `registros_v2.txt`.
+* Si el usuario guarda estadísticas en archivo, se genera un documento llamado `Estadisticas.txt`.
+
+---
+
+## Propósito del proyecto
+
+Este proyecto busca aplicar de manera integrada conceptos fundamentales de programación en Python, construyendo un sistema funcional con:
+
 * Modularidad.
-* Manejo de archivos.
-* Validación de entradas.
-* Procesamiento de datos.
-* Ordenamiento y búsqueda.
-* Diseño de menús interactivos.
-* Documentación de código.
-* Pruebas y revisión de funcionamiento.
+* Persistencia básica de datos.
+* Validaciones.
+* Menús interactivos.
+* Procesamiento de registros.
+* Generación de reportes.
 
----
-
-# Nota
-
-Los ejercicios conservan el enfoque con el que fueron desarrollados en cada momento del proceso de aprendizaje. Algunos programas son deliberadamente simples, mientras que otros muestran una mayor organización, modularidad y complejidad técnica.
+```
+```

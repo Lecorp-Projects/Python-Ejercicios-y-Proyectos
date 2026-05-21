@@ -34,6 +34,14 @@ def agregar_nota(base_datos, nombre, nota):
     return True
 
 
+def eliminar_estudiante(base_datos, nombre):
+    """Elimina un estudiante de la base de datos."""
+    if nombre not in base_datos:
+        return False
+    del base_datos[nombre]
+    return True
+
+
 def promedio_estudiante(base_datos, nombre):
     """Retorna promedio o None si no existe o no tiene notas."""
     if nombre not in base_datos:
@@ -86,7 +94,8 @@ def menu():
         print('3. Mostrar promedio de un estudiante')
         print('4. Mostrar mejor estudiante')
         print('5. Mostrar resumen')
-        print('6. Salir')
+        print('6. Eliminar estudiante')
+        print('7. Salir')
         opcion = input('Elija una opción: ').strip()
         if opcion == '1':
             nombre = input('Nombre del estudiante: ').strip()
@@ -117,6 +126,12 @@ def menu():
         elif opcion == '5':
             mostrar_resumen(base)
         elif opcion == '6':
+            nombre = input('Nombre del estudiante a eliminar: ').strip()
+            if eliminar_estudiante(base, nombre):
+                print('Estudiante eliminado.')
+            else:
+                print('No existe el estudiante.')
+        elif opcion == '7':
             print('Saliendo...')
             break
         else:
